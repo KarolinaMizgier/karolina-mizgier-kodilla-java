@@ -127,7 +127,7 @@ class BookDirectoryTestSuite {
         }
 
         @Test
-        void whenUserHas5Books() {
+        void testwhenUserHas5Books() {
             //Given
             LibraryUser user = new LibraryUser("Adam", "Nowak", 890405768);
             BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);

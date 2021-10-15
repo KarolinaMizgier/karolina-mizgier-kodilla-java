@@ -35,29 +35,29 @@ public class StatisticsCalculatortestSuite {
             @Test
             public void testWhen0posts() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.postsCount()).thenReturn(0);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float postAverage = statisticsCalculator.getPostAverage();
-                float commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
+                double postAverage = statisticsCalculator.getPostAverage();
+                double commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
                 //Then
-                Assertions.assertEquals(0, postAverage);
-                Assertions.assertEquals(0, commentPerPostAverage);
+                Assertions.assertEquals(0.0, postAverage);
+                Assertions.assertEquals(0.0, commentPerPostAverage);
             }
 
             @Test
             public void testWhen1000posts() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.postsCount()).thenReturn(1000);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float postAverage = statisticsCalculator.getPostAverage();
-                float commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
+                double postAverage = statisticsCalculator.getPostAverage();
+                double commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
                 //Then
-                Assertions.assertEquals(200, postAverage);
-                Assertions.assertEquals(1, commentPerPostAverage);
+                Assertions.assertEquals(200.0, postAverage);
+                Assertions.assertEquals(1.0, commentPerPostAverage);
             }
         }
 
@@ -74,42 +74,42 @@ public class StatisticsCalculatortestSuite {
             @Test
             public void testWhen0comments() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.commentsCount()).thenReturn(0);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float commentAverage = statisticsCalculator.getCommentAverage();
-                float commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
+                double commentAverage = statisticsCalculator.getCommentAverage();
+                double commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
                 //Then
-                Assertions.assertEquals(0, commentAverage);
-                Assertions.assertEquals(0, commentPerPostAverage);
+                Assertions.assertEquals(0.0, commentAverage);
+                Assertions.assertEquals(0.0, commentPerPostAverage);
             }
 
             @Test
             public void testWhenLessCommentsThanPosts() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.commentsCount()).thenReturn(50);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float commentAverage = statisticsCalculator.getCommentAverage();
-                float commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
+                double commentAverage = statisticsCalculator.getCommentAverage();
+                double commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
                 //Then
-                Assertions.assertEquals(10, commentAverage);
+                Assertions.assertEquals(10.0, commentAverage);
                 Assertions.assertEquals(0.5, commentPerPostAverage);
             }
 
             @Test
             public void testWhenMoreCommentsThanPosts() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.commentsCount()).thenReturn(150);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float commentAverage = statisticsCalculator.getCommentAverage();
-                float commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
+                double commentAverage = statisticsCalculator.getCommentAverage();
+                double commentPerPostAverage = statisticsCalculator.getCommentPerPostAverage();
                 //Then
-                Assertions.assertEquals(30, commentAverage);
+                Assertions.assertEquals(30.0, commentAverage);
                 Assertions.assertEquals(1.5, commentPerPostAverage);
             }
 
@@ -127,21 +127,21 @@ public class StatisticsCalculatortestSuite {
             @Test
             public void testWhen0Users() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 when(statisticsMock.usersNames()).thenReturn(Collections.emptyList());
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float commentAverage = statisticsCalculator.getCommentAverage();
-                float postAverage = statisticsCalculator.getPostAverage();
+                double commentAverage = statisticsCalculator.getCommentAverage();
+                double postAverage = statisticsCalculator.getPostAverage();
                 //Then
-                Assertions.assertEquals(0, commentAverage);
-                Assertions.assertEquals(0, postAverage);
+                Assertions.assertEquals(0.0, commentAverage);
+                Assertions.assertEquals(0.0, postAverage);
             }
 
             @Test
             public void testWhen100Users() {
                 //Given
-                StatisticsCalculator statisticsCalculator = new StatisticsCalculator(statisticsMock);
+                StatisticsCalculator statisticsCalculator = new StatisticsCalculator();
                 List<String> usrNames = new ArrayList<>();
                 for (int i = 0; i < 100; i++) {
                     usrNames.add(String.valueOf(i));
@@ -149,11 +149,11 @@ public class StatisticsCalculatortestSuite {
                 when(statisticsMock.usersNames()).thenReturn(usrNames);
                 //When
                 statisticsCalculator.calculateAdvStatistics(statisticsMock);
-                float commentAverage = statisticsCalculator.getCommentAverage();
-                float postAverage = statisticsCalculator.getPostAverage();
+                double commentAverage = statisticsCalculator.getCommentAverage();
+                double postAverage = statisticsCalculator.getPostAverage();
                 //Then
                 Assertions.assertEquals(1.5, commentAverage);
-                Assertions.assertEquals(1, postAverage);
+                Assertions.assertEquals(1.0, postAverage);
             }
         }
     }

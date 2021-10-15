@@ -2,38 +2,34 @@ package com.kodilla.testing.forum.statistics;
 
 public class StatisticsCalculator {
     Statistics statistics;
-    float postAverage;
-    float commentAverage;
-    float commentPerPostAverage;
-
-    public StatisticsCalculator(Statistics statistics) {
-        this.statistics = statistics;
-    }
+    double postAverage;
+    double commentAverage;
+    double commentPerPostAverage;
 
     public void calculateAdvStatistics(Statistics statistics) {
         if (statistics.usersNames().size() == 0) {
             postAverage = 0;
             commentAverage = 0;
         } else {
-            postAverage = (float) statistics.postsCount() / (float) statistics.usersNames().size();
-            commentAverage = (float) statistics.commentsCount() / (float) statistics.usersNames().size();
+            postAverage = (double) statistics.postsCount() / (double) statistics.usersNames().size();
+            commentAverage = (double) statistics.commentsCount() / (double) statistics.usersNames().size();
         }
         if (statistics.postsCount() == 0) {
             commentPerPostAverage = 0;
         } else {
-            commentPerPostAverage = (float) statistics.commentsCount() / (float) statistics.postsCount();
+            commentPerPostAverage = (double) statistics.commentsCount() / (double) statistics.postsCount();
         }
     }
 
-    public float getPostAverage() {
+    public double getPostAverage() {
         return postAverage;
     }
 
-    public float getCommentAverage() {
+    public double getCommentAverage() {
         return commentAverage;
     }
 
-    public float getCommentPerPostAverage() {
+    public double getCommentPerPostAverage() {
         return commentPerPostAverage;
     }
 

@@ -1,5 +1,6 @@
 package com.kodilla.stream.world;
 
+import com.kodilla.stream.array.ArrayOperations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,5 @@ public class WorldTestSuite {
         //Then
         BigDecimal expected = new BigDecimal(655900000);
         Assertions.assertEquals(expected,sum);
-
     }
 }

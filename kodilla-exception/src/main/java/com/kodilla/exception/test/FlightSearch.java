@@ -5,29 +5,26 @@ import java.util.Map;
 
 public class FlightSearch {
 
-    public static String findFilght(Flight flight) throws RouteNotFoundException{
+    public boolean findFilght(Flight flight) throws RouteNotFoundException {
         Map<String, Boolean> map = new HashMap<>();
-        map.put("Barcelona",true);
-        map.put("New York",false);
-        map.put("Rome",true);
-        Boolean status = null;
-        for(Map.Entry<String, Boolean> entry: map.entrySet()){
-            if(entry.getKey()==flight.getArrivalAirport()){
-                status = entry.getValue();
-            }else {
-                throw new RouteNotFoundException("Tego miasta nie ma w bazie.");
-            }
+        map.put("Barcelona", true);
+        map.put("New York", false);
+        map.put("Rome", true);
+
+        String arrivalAirport = flight.getArrivalAirport();
+        if (!map.containsKey(arrivalAirport)) {
+            throw new RouteNotFoundException("Airport in this city is not in avaliable.");
         }
-        return "dostępność lotu: " + status.toString();
+        return map.get(arrivalAirport);
     }
 
     public static void main(String[] args) {
-        Flight flight = new Flight("Warszawa","Barcelona");
+        Flight flight = new Flight("Warszawa", "New York");
+        FlightSearch flightSearch = new FlightSearch();
         try {
-            System.out.println(FlightSearch.findFilght(flight));
+            System.out.println("Is airport avaliable: " + flightSearch.findFilght(flight));
         } catch (RouteNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e);
+            System.out.println("Cannot find flight: " + e.getMessage());
         }
 
     }

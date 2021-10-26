@@ -2,19 +2,11 @@ package com.kodilla.exception;
 
 public class FirstChallenge {
     public double divide(double a, double b) {
-        double result = a / b;
-        try {
-            if (b == 0) {
-                throw new ArithmeticException();
-            }
-        } catch (ArithmeticException e) {
-            System.out.println("Nie można dzielić przez 0!");
-        } finally {
-            System.out.println("Dzielnik: " + b + " Dzielna: " + a);
+        if (b == 0) {
+            throw new ArithmeticException("Division by zero");
         }
-        return result;
+        return a / b;
     }
-
 
     /**
      * This main can throw an ArithmeticException!!!
@@ -23,8 +15,11 @@ public class FirstChallenge {
      */
     public static void main(String[] args) {
         FirstChallenge firstChallenge = new FirstChallenge();
-        double result = firstChallenge.divide(4, 0);
-
-        System.out.println("Wynik: " + result);
+        try {
+            double result = firstChallenge.divide(4, 0);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Bad operation: " + e.getMessage());
+        }
     }
 }

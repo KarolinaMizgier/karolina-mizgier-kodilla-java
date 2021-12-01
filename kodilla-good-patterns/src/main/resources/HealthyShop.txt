@@ -1,0 +1,5 @@
+smoothie 10
+eggs 26
+salad 8
+chips 15
+carrotJuice 20

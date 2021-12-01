@@ -1,0 +1,5 @@
+honey 3
+potatos 12
+selery 4
+cheese 3
+carrot 2

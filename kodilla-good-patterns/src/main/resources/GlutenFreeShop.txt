@@ -1,4 +1,0 @@
-pizzaDough 6
-cake 12
-cookiesChoco 9
-cookies 10

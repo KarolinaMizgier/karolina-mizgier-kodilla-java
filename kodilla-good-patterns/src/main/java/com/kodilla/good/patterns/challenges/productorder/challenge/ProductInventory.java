@@ -51,16 +51,16 @@ public class ProductInventory {
     public ProductInventory() {
     }
 
-    public boolean isAvaliable(Product product) {
-        if (products.contains(product.getProductName())) {
+    public boolean isAvaliable(Item item) {
+        if (products.contains(item.getProductName())) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void deleteItem(Product product) {
-        String name = product.getProductName();
+    public void deleteItem(Item item) {
+        String name = item.getProductName();
         products.remove(name);
         try {
             FileWriter writer = new FileWriter(path);

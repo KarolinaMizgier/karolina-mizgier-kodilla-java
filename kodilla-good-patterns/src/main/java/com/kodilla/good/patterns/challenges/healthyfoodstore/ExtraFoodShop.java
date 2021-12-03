@@ -1,16 +1,16 @@
 package com.kodilla.good.patterns.challenges.healthyfoodstore;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class ExtraFoodShop implements Producer {
     public static final String SHOP_NAME = "Extra Food Shop";
     private double shippingPrice = 15;
     private int shippingDays = 3;
 
-    private Map<String, ItemInfo> prices = new HashMap<>(){{
+    private Map<String, ItemInfo> prices = new HashMap<>() {{
         put("honey", new ItemInfo(BigDecimal.valueOf(20.50), 5));
         put("potatos", new ItemInfo(BigDecimal.valueOf(15.95), 10));
         put("selery", new ItemInfo(BigDecimal.valueOf(12.25), 3));
@@ -18,35 +18,35 @@ public class ExtraFoodShop implements Producer {
         put("carrot", new ItemInfo(BigDecimal.valueOf(17.78), 0));
     }};
 
-    public void updateInventory(Order order){
+    public void updateInventory(Order order) {
         String name = order.getProduct().getProductName();
-        int newQuantity = 0;
-        ItemInfo  updatedInfo = null;
-        for (Map.Entry<String, ItemInfo> entry : prices.entrySet()) {
-            if (Objects.equals(name, entry.getKey())) {
-                newQuantity = entry.getValue().getQuantity() - order.getQuantity();
-                updatedInfo = new ItemInfo(entry.getValue().getPrice(), newQuantity);
-            }
-        }
-        if (newQuantity > 0) {
-            prices.replace(name,updatedInfo);
-        } else {
-            prices.remove(name);
-        }
+        ItemInfo itemInfo = prices.get(name);
+        itemInfo.setQuantity(itemInfo.getQuantity() - order.getQuantity());
+        prices.put(name, itemInfo);
     }
 
     @Override
     public void process(Order order) {
         Product product = order.getProduct();
-        double price = calculateTotalPrice(order);
-        order.setTotalPrice( BigDecimal.valueOf(price));
-        updateInventory(order);
+        ItemInfo productInfo = prices.get(product.getProductName());
+        if (order.getQuantity() <= productInfo.getQuantity()) {
+            double price = calculateTotalPrice(order);
+            order.setTotalPrice(BigDecimal.valueOf(price).setScale(2, RoundingMode.CEILING));
+            updateInventory(order);
+
+            System.out.println("Updated inventory: ");
+            for (Map.Entry entry : prices.entrySet()) {
+                System.out.println("Product name: " + entry.getKey() + " Product quantity: " +
+                        prices.get(entry.getKey()).getQuantity());
+            }
+        }
+        System.out.println("Not enough products available in store");
     }
 
     private double calculateTotalPrice(Order order) {
         Product product = order.getProduct();
         String productName = product.getProductName();
-        if(prices.containsKey(productName)) {
+        if (prices.containsKey(productName)) {
             ItemInfo productInfo = prices.get(productName);
             BigDecimal price = productInfo.getPrice();
             return order.getQuantity() * price.doubleValue() + shippingPrice;

@@ -1,5 +1,5 @@
 package com.kodilla.good.patterns.challenges.productorder.challenge;
 
 public interface DeliveryService {
-    double deliverBy();
+    double deliveryPrice();
 }

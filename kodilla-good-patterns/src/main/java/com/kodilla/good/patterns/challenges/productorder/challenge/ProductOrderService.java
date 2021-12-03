@@ -1,20 +1,13 @@
 package com.kodilla.good.patterns.challenges.productorder.challenge;
 
 public class ProductOrderService {
-    private Product product;
-    private User user;
-    private ProductInventory inventory;
-    private UserNotification notification;
 
-    public ProductOrderService(Product product, User user, ProductInventory inventory) {
-        this.product = product;
-        this.user = user;
-        this.inventory = inventory;
+    public double calculateTotalPrice(OrderItem order) {
+        return order.getItem().getPrice() + order.getDelivery().deliveryPrice();
     }
 
-    public double calculateTotalPrice(Order order) {
-
-        return order.getProduct(). + delivery.deliverBy();
+    public boolean service(OrderItem order){
+        return false;
     }
 
     //TODO zaleznosc do InformationService ktory symuluje wyslanie maila
@@ -24,15 +17,13 @@ public class ProductOrderService {
     //TODO zapisac dane zamowienia do repozytorium, zwrocic dane zamowienia
     //obiekty odpowiedzialne za logike moga miec metody pracujace na obiektach ale same nie moga zalezec od tych obiektow
 
-    public void pocessOrder(Product product, User user, ProductInventory inventory){
-
-    }
     public boolean isOrdered() {
-        if (inventory.isAvaliable(product)) {
-            return true;
-        } else {
-            return false;
-        }
+//        if (inventory.isAvaliable(item)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 
 

@@ -18,8 +18,4 @@ public class UserProfile {
     public String getLastName() {
         return lastName;
     }
-
-    public String getAddress() {
-        return address;
-    }
 }

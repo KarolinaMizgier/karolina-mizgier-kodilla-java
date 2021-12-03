@@ -1,9 +1,8 @@
-package com.kodilla.good.patterns.challenges.productorder;
+package com.kodilla.good.patterns.challenges.productorder.challenge;
 
 public class Product {
     private String productName;
     private double price;
-    private boolean isAvaliable;
 
     public Product(String productName, double price) {
         this.productName = productName;

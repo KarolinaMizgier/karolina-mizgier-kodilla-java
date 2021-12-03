@@ -1,13 +1,12 @@
 package com.kodilla.good.patterns.challenges.healthyfoodstore;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
 
 public class Order {
-    Map<String, Integer> products = new HashMap<>();
-    Product product;
-    int quantity;
-    UserProfile user;
+    private final Product product;
+    private BigDecimal totalPrice;
+    private final int quantity;
+    private final UserProfile user;
 
     public Order(Product product, int quantity, UserProfile user) {
         this.product = product;
@@ -15,22 +14,23 @@ public class Order {
         this.user = user;
     }
 
-    public void addProduct(Product product) {
-        products.put(product.getProductName(), quantity);
-    }
-
-    public void showProducts() {
-        addProduct(product);
-        products.entrySet().forEach(entry -> {
-            System.out.println("Item: " + entry.getKey() + " Quantity: " + entry.getValue());
-        });
-    }
-
     public Product getProduct() {
         return product;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     public UserProfile getUser() {
         return user;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

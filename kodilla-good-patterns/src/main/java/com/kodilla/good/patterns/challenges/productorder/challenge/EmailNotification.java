@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.challenges.productorder;
+package com.kodilla.good.patterns.challenges.productorder.challenge;
 
 public class EmailNotification implements UserNotification {
     private void sendEmail() {

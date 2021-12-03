@@ -2,19 +2,18 @@ package com.kodilla.good.patterns.challenges.healthyfoodstore;
 
 public class Product {
     private String productName;
-    private double price;
-    private boolean isAvaliable;
+    private String producerName;
 
-    public Product(String productName, double price) {
+    public Product(String productName, String producerName) {
         this.productName = productName;
-        this.price = price;
+        this.producerName = producerName;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public double getPrice() {
-        return price;
+    public String getProducerName() {
+        return producerName;
     }
 }

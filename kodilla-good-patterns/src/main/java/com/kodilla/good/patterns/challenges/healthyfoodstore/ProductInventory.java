@@ -19,6 +19,8 @@ public class ProductInventory {
         this.order = order;
     }
 
+    //przerobic na metode
+
     public void makeProductMap() {
         {
             try {
@@ -40,7 +42,7 @@ public class ProductInventory {
                 quantity = entry.getValue();
             }
         }
-        if (quantity >= order.quantity) {
+        if (quantity >= order.getQuantity()) {
             return true;
         } else {
             return false;
@@ -52,7 +54,7 @@ public class ProductInventory {
         int newQuantity = 0;
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             if (Objects.equals(name, entry.getKey())) {
-                newQuantity = entry.getValue() - order.quantity;
+                newQuantity = entry.getValue() - order.getQuantity();
             }
         }
         if (newQuantity > 0) {

@@ -6,4 +6,7 @@ public class PcztaPolskaDelivery implements DeliveryService {
     public double deliveryPrice() {
         return price;
     }
+    public String deliveredBy(){
+        return "Poczta Polska Delivery";
+    }
 }

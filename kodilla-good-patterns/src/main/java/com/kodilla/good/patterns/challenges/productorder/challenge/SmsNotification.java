@@ -6,6 +6,6 @@ public class SmsNotification implements UserNotification {
 
     public String notifyUser() {
         sendSms();
-        return "Notification via SMS sent";
+        return "Notification via SMS";
     }
 }

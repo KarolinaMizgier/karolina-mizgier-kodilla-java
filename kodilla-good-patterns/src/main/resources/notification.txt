@@ -1,0 +1,8 @@
+Ordered item: socks blue
+Items quantity: 5
+Ordered item: mug
+Items quantity: 4
+Item(s) ordered by: Adam Nowak
+Total price: 132.40
+Delivery: Poczta Polska Delivery
+Notification sent by: Notification via e-mail

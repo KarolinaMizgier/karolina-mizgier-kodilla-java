@@ -1,25 +1,20 @@
 package com.kodilla.good.patterns.challenges.healthyfoodstore;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class Order {
-    private final Product product;
+    private final Map<Product,Integer> products;
     private BigDecimal totalPrice;
-    private final int quantity;
     private final UserProfile user;
 
-    public Order(Product product, int quantity, UserProfile user) {
-        this.product = product;
-        this.quantity = quantity;
+    public Order(Map<Product,Integer> products, UserProfile user) {
+        this.products = products;
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    public Map<Product,Integer> getProducts(){
+        return products;
     }
 
     public UserProfile getUser() {

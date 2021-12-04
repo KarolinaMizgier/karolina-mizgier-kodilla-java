@@ -9,55 +9,86 @@ public class HealthyShop implements Producer {
     public static final String SHOP_NAME = "Healthy Shop";
     private double shippingPrice = 10.8;
     private int shippingDays = 2;
+    Map<Product, Integer> products;
+    private double tempSum;
 
-    private Map<String, ItemInfo> prices = new HashMap<>() {{
-        put("smoothie", new ItemInfo(BigDecimal.valueOf(5.80), 1));
-        put("eggs", new ItemInfo(BigDecimal.valueOf(11.40), 3));
-        put("salad", new ItemInfo(BigDecimal.valueOf(6.24), 4));
-        put("chips", new ItemInfo(BigDecimal.valueOf(10.05), 2));
-        put("carrotJuice", new ItemInfo(BigDecimal.valueOf(8.25), 99));
+    private Map<ItemInfo, BigDecimal> inventory = new HashMap<>() {{
+        put(new ItemInfo("smoothie", 30), BigDecimal.valueOf(5.80));
+        put(new ItemInfo("eggs", 20), BigDecimal.valueOf(11.40));
+        put(new ItemInfo("salad", 20), BigDecimal.valueOf(6.24));
+        put(new ItemInfo("chips", 30), BigDecimal.valueOf(10.05));
+        put(new ItemInfo("carrotJuice", 35), BigDecimal.valueOf(8.25));
     }};
 
-
     public void updateInventory(Order order) {
-        String name = order.getProduct().getProductName();
-        ItemInfo itemInfo = prices.get(name);
-        itemInfo.setQuantity(itemInfo.getQuantity() - order.getQuantity());
-        prices.put(name, itemInfo);
+        products = order.getProducts();
+        products.entrySet().forEach(entry -> {
+            String name = entry.getKey().getProductName();
+            int quantity = entry.getValue();
+
+            inventory.entrySet().forEach(entry2 -> {
+                if (name.equals(entry2.getKey().getProductName())) {
+                    int quantityInStore = entry2.getKey().getQuantity();
+                    entry2.getKey().setQuantity(quantityInStore - quantity);
+                }
+            });
+        });
     }
 
     public void process(Order order) {
-        ItemInfo productInfo = prices.get(order.getProduct().getProductName());
-        if (order.getQuantity() <= productInfo.getQuantity()) {
-            double price = calculateTotalPrice(order);
-            if (order.getQuantity() > 10) {
-                price = price - 20;
-                System.out.println("When buying over 10 items, you got 20 zl dicount!");
-                order.setTotalPrice(BigDecimal.valueOf(price).setScale(2, RoundingMode.CEILING));
-            } else {
-                order.setTotalPrice(BigDecimal.valueOf(price).setScale(2, RoundingMode.CEILING));
-            }
-            updateInventory(order);
+        double price = calculateTotalPrice(order);
+        order.setTotalPrice(BigDecimal.valueOf(price).setScale(2, RoundingMode.CEILING));
+        updateInventory(order);
 
-            System.out.println("Updated inventory: ");
-            for (Map.Entry entry : prices.entrySet()) {
-                System.out.println("Product name: " + entry.getKey() + " Product quantity: " +
-                        prices.get(entry.getKey()).getQuantity());
-            }
-        }
-        System.out.println("Not enough products available in store");
+        System.out.println("Updated inventory: ");
+        inventory.entrySet().forEach(entry -> {
+            System.out.println("Product: " + entry.getKey().getProductName() + " Quantity: " + entry.getKey().getQuantity());
+        });
     }
 
     private double calculateTotalPrice(Order order) {
-        Product product = order.getProduct();
-        String productName = product.getProductName();
-        if (prices.containsKey(productName)) {
-            ItemInfo productInfo = prices.get(productName);
-            BigDecimal price = productInfo.getPrice();
-            return order.getQuantity() * price.doubleValue() + shippingPrice;
+        products = order.getProducts();
+        products.entrySet().forEach(entry -> {
+            String name = entry.getKey().getProductName();
+            int quantity = entry.getValue();
+
+            inventory.entrySet().forEach(entry2 -> {
+                int quantityInStore = entry2.getKey().getQuantity();
+
+                if (quantity <= quantityInStore) {
+                    ItemInfo itemInfo = entry2.getKey();
+                    if (name.equals(itemInfo.getProductName())) {
+                        BigDecimal price = inventory.get(itemInfo);
+                        tempSum += quantity * price.doubleValue();
+                    }
+                } else {
+                    System.out.println("Not enough products in store.");
+                }
+            });
+        });
+        return tempSum + shippingPrice;
+    }
+
+    private class ItemInfo {
+        private String productName;
+        private Integer quantity;
+
+        public ItemInfo(String productName, Integer quantity) {
+            this.productName = productName;
+            this.quantity = quantity;
         }
-        System.out.println(String.format("INFO: Cannot calculate total price shop %s does not offer product: %s",
-                SHOP_NAME, productName));
-        return 0.0;
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public Integer getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
+        }
     }
 }
+

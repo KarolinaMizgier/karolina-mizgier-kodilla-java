@@ -6,6 +6,6 @@ public class EmailNotification implements UserNotification {
 
     public String notifyUser() {
         sendEmail();
-        return "Notification via e-mail sent";
+        return "Notification via e-mail";
     }
 }

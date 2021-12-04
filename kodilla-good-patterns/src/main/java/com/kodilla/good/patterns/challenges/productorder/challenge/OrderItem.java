@@ -1,17 +1,15 @@
 package com.kodilla.good.patterns.challenges.productorder.challenge;
 
-import com.kodilla.good.patterns.challenges.healthyfoodstore.Product;
+import java.util.Map;
 
 public class OrderItem {
-    private final Item item;
-    private final int quantity;
+    private final Map<Item, Integer> items;
     private final User user;
     private DeliveryService delivery;
     private UserNotification notification;
 
-    public OrderItem(Item item, int quantity, User user, DeliveryService delivery, UserNotification notification) {
-        this.item = item;
-        this.quantity = quantity;
+    public OrderItem(Map<Item, Integer> items, User user, DeliveryService delivery, UserNotification notification) {
+        this.items = items;
         this.user = user;
         this.delivery = delivery;
         this.notification = notification;
@@ -25,13 +23,10 @@ public class OrderItem {
         return notification;
     }
 
-    public Item getItem() {
-        return item;
+    public Map<Item, Integer> getItems() {
+        return items;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
     public User getUser() {
         return user;

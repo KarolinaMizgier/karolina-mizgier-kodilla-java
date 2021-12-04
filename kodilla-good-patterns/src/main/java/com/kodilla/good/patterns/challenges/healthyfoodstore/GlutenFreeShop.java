@@ -69,7 +69,6 @@ public class GlutenFreeShop implements Producer {
                         SHOP_NAME, productName));
                 tempSum += 0;
             }
-
         });
         return tempSum + shippingPrice;
     }

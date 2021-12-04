@@ -9,7 +9,6 @@ public class Application {
         Producer healthyShop = new HealthyShop();
         Producer glutenFree = new GlutenFreeShop();
         Producer extraFoodShop = new ExtraFoodShop();
-
         UserProfile adam = new UserProfile("Adam", "Nowak", "Mickiewicza 5, 80-284 Gdansk");
 
         Product extraPotatos = new Product("potatos", ExtraFoodShop.SHOP_NAME);

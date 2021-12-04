@@ -77,7 +77,6 @@ public class HealthyShop implements Producer {
             this.productName = productName;
             this.quantity = quantity;
         }
-
         public String getProductName() {
             return productName;
         }

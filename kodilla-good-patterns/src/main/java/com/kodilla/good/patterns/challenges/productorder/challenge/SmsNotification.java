@@ -9,3 +9,4 @@ public class SmsNotification implements UserNotification {
         return "Notification via SMS";
     }
 }
+

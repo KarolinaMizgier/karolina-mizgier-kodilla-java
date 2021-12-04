@@ -9,3 +9,4 @@ public class EmailNotification implements UserNotification {
         return "Notification via e-mail";
     }
 }
+

@@ -4,3 +4,4 @@ public interface DeliveryService {
     double deliveryPrice();
     String deliveredBy();
 }
+

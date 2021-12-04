@@ -11,6 +11,7 @@ public class Application {
             put(mug, 4);
             put(socks_blue, 5);
         }};
+
         User adam = new User("Adam", "Nowak", "Mickiewicza 5, 80-284 Gdansk");
         DeliveryService poczta = new PcztaPolskaDelivery();
         UserNotification email = new EmailNotification();

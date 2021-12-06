@@ -1,53 +1,63 @@
 package com.kodilla.good.patterns.challenges.flights;
 
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FlightSearch {
     FlightData data = new FlightData();
-    List<Flight> krakowDepartures = data.krakowDepartures;
-    List<Flight> wroclawDepartures = data.wroclawDepartures;
-    List<Flight> gdanskDepartures = data.gdanskDepartures;
-    List<Flight> warszawaDepartures = data.warszawaDepartures;
+    Set<Flight> connections = new HashSet<>();
 
-    City krakow = new City("Krakow");
-    City wroclaw = new City("Wroclaw");
-    City gdansk = new City("Gdansk");
-    City warszawa = new City("Warszawa");
-
-    private Map<City, List<Flight>> departureMap = new HashMap<>(){{
-        put(krakow,krakowDepartures);
-        put(wroclaw,wroclawDepartures);
-        put(gdansk,gdanskDepartures);
-        put(warszawa,warszawaDepartures);
-    }};
-
-    public List<Flight> findFlightTo(String city){
-       List<Flights> flights = data.getFlights();
-        Optional<List<Flight>> arrivals = flights.stream()
-                .filter(line -> city.equals(line.getCity()))
-                .map(line -> line.getArrivals())
-                .findFirst();
-        arrivals.stream().forEach(line->{
-            System.out.println(line.toString());
+    public Map<String, Flight> findFlightTo(String city) {
+        Flights flights = data.getFlights().get(city);
+        Map<String, Flight> arrivals = flights.getArrivals();
+        arrivals.entrySet().stream().forEach(entry -> {
+            System.out.println("Flight: " + entry.getValue() + "\n");
         });
-        return arrivals.orElseGet(ArrayList::new);
+        return arrivals;
     }
 
-    public List<Flight> findFlightFrom(String city){
-        List<Flights> flights = data.getFlights();
-        Optional<List<Flight>> arrivals = flights.stream()
-                .filter(line -> city.equals(line.getCity()))
-                .map(line -> line.getDepartures())
-                .findFirst();
-        arrivals.stream().forEach(line->{
-            System.out.println(line.toString());
+    public Map<String, Flight> findFlightFrom(String city) {
+        Flights flights = data.getFlights().get(city);
+        Map<String, Flight> departures = flights.getArrivals();
+        departures.entrySet().stream().forEach(entry -> {
+            System.out.println("Flight: " + entry.getValue() + "\n");
         });
-        return arrivals.orElseGet(ArrayList::new);
+        return departures;
     }
 
-    public void findFlights(City city) {
+    public Set<Flight> findConnections(String departureCity, String arrivalCity) {
+        Flights flights = data.getFlights().get(departureCity);
+        Map<String, Flight> departures = flights.getDepartures();
 
-        System.out.println(departureMap.get(city));
+        Flights flights2 = data.getFlights().get(arrivalCity);
+        Map<String, Flight> arrivals = flights2.getArrivals();
+
+
+        List<Flight> directFlights = new ArrayList<>();
+        for (Map.Entry<String, Flight> entry : arrivals.entrySet()) {
+            if (entry.getKey().equals(departureCity)) {
+                directFlights.add(entry.getValue());
+            }
+        }
+
+        connections.addAll(directFlights);
+
+        List<String> commonKeys = (List<String>) CollectionUtils.intersection(arrivals.keySet(), departures.keySet());
+
+        for (int i = 0; i < commonKeys.size(); i++) {
+            String key = commonKeys.get(i);
+            if (!key.equals(departureCity) &&
+                    !key.equals(arrivalCity) &&
+                    arrivals.get(key).departureTime.getHour() > (departures.get(key).departureTime.getHour())) {
+                connections.add(arrivals.get(commonKeys.get(i)));
+                connections.add(departures.get(commonKeys.get(i)));
+            }
+        }
+
+        return connections;
     }
 
 

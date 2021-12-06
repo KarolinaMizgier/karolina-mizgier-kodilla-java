@@ -1,13 +1,14 @@
 package com.kodilla.good.patterns.challenges.flights;
 
 import java.util.List;
+import java.util.Map;
 
 public class Flights {
-    List<Flight> arrivals;
-    List<Flight> departures;
+    Map<String,Flight> arrivals;
+    Map<String,Flight> departures;
     String city;
 
-    public Flights(String city, List<Flight> arrivals, List<Flight> departures) {
+    public Flights(String city, Map<String,Flight>  arrivals, Map<String,Flight>  departures) {
         this.city = city;
         this.arrivals = arrivals;
         this.departures = departures;
@@ -17,11 +18,11 @@ public class Flights {
         return city;
     }
 
-    public List<Flight> getArrivals() {
+    public Map<String,Flight>  getArrivals() {
         return arrivals;
     }
 
-    public List<Flight> getDepartures() {
+    public Map<String,Flight>  getDepartures() {
         return departures;
     }
 

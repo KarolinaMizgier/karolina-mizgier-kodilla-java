@@ -22,14 +22,13 @@ public class Flight {
     }
 
 
-
     @Override
-    public String toString(){
-        return "\nDeparture city: "+departureCity+
-                "\n Arrival city: "+arrivalCity+
-                "\n Departure time: "+departureTime.toString()+
-                "\n Arrival time: "+arrivalTime+
-                "\n Date: "+date+"\n";
+    public String toString() {
+        return "\nDeparture city: " + departureCity +
+                "\n Arrival city: " + arrivalCity +
+                "\n Departure time: " + departureTime.toString() +
+                "\n Arrival time: " + arrivalTime +
+                "\n Date: " + date + "\n";
     }
 
     @Override

@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class FlightData {
 
-    static Map<String, Flights> cities = new HashMap<>();
 
     Flight krakow1 = new Flight("Gdansk", "Krakow",
             LocalTime.parse("10:20"), LocalTime.parse("12:20"),
@@ -45,58 +44,31 @@ public class FlightData {
             LocalTime.parse("15:30"), LocalTime.parse("18:00"),
             LocalDate.of(2021, 12, 20));
 
-    public Map<String, Flight> krakowArrivalsMap = new HashMap<>() {{
-        put(krakow1.departureCity, krakow1);
-        put(krakow2.departureCity, krakow2);
-        put(krakow3.departureCity, krakow3);
-        put(krakow4.departureCity, krakow4);
+    public List<Flight> krakow = new ArrayList<>() {{
+        add(krakow1);
+        add(krakow2);
+        add(krakow3);
+        add(krakow4);
     }};
-    public Map<String, Flight> krakowDeparturesMap = new HashMap<>() {{
-        put(gdansk2.arrivalCity, gdansk2);
-        put(wroclaw3.arrivalCity, wroclaw3);
-        put(warszawa1.arrivalCity, warszawa1);
+    public List<Flight> wroclaw = new ArrayList<>() {{
+        add(wroclaw1);
+        add(wroclaw2);
+        add(wroclaw3);
     }};
-    public Map<String, Flight> gdanskArrivalsMap = new HashMap<>() {{
-        put(gdansk1.departureCity, gdansk1);
-        put(gdansk2.departureCity, gdansk2);
+    public List<Flight> gdansk = new ArrayList<>() {{
+        add(gdansk1);
+        add(gdansk2);
     }};
-    public Map<String, Flight> gdanskDeparturesMap = new HashMap<>() {{
-        put(krakow1.arrivalCity, krakow1);
-        put(krakow2.arrivalCity, krakow2);
-        put(wroclaw2.arrivalCity, wroclaw2);
-        put(warszawa2.arrivalCity, warszawa2);
-    }};
-    public Map<String, Flight> wroclawArrivalsMap = new HashMap<>() {{
-        put(wroclaw1.departureCity, wroclaw1);
-        put(wroclaw2.departureCity, wroclaw2);
-        put(wroclaw3.departureCity, wroclaw3);
-    }};
-    public Map<String, Flight> wroclawDeparturesMap = new HashMap<>() {{
-        put(krakow4.arrivalCity, krakow4);
-    }};
-    public Map<String, Flight> warszawaArrivalsMap = new HashMap<>() {{
-        put(warszawa1.departureCity, warszawa1);
-        put(warszawa2.departureCity, warszawa2);
-    }};
-    public Map<String, Flight> warszawaDeparturesMap = new HashMap<>() {{
-        put(krakow3.arrivalCity, krakow3);
-        put(wroclaw1.arrivalCity, wroclaw1);
-        put(gdansk1.arrivalCity, gdansk1);
+    public List<Flight> warszawa = new ArrayList<>() {{
+        add(warszawa1);
+        add(warszawa2);
     }};
 
-    Flights krakow = new Flights("Krakow", krakowArrivalsMap, krakowDeparturesMap);
-    Flights gdansk = new Flights("Gdansk", gdanskArrivalsMap, gdanskDeparturesMap);
-    Flights wroclaw = new Flights("Wroclaw", wroclawArrivalsMap, wroclawDeparturesMap);
-    Flights warszawa = new Flights("Warszawa", warszawaArrivalsMap, warszawaDeparturesMap);
-
-
-    public Map<String, Flights> getFlights() {
-        cities.put("Krakow", krakow);
-        cities.put("Gdansk", gdansk);
-        cities.put("Wroclaw", wroclaw);
-        cities.put("Warszawa", warszawa);
-        return cities;
-    }
-
+    public Map<String, List<Flight>> flights = new HashMap<>() {{
+        put("Wroclaw", wroclaw);
+        put("Gdansk", gdansk);
+        put("Warszawa", warszawa);
+        put("Krakow", krakow);
+    }};
 
 }

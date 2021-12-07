@@ -1,7 +1,5 @@
 package com.kodilla.good.patterns.challenges.flights;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -20,7 +18,6 @@ public class Flight {
         this.arrivalTime = arrivalTime;
         this.date = date;
     }
-
 
     @Override
     public String toString() {

@@ -1,64 +1,55 @@
 package com.kodilla.good.patterns.challenges.flights;
 
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class FlightSearch {
     FlightData data = new FlightData();
     List<Flight> connections = new ArrayList<>();
 
-    public Map<String, Flight> findFlightTo(String city) {
-        Flights flights = data.getFlights().get(city);
-        Map<String, Flight> arrivals = flights.getArrivals();
-        arrivals.entrySet().stream().forEach(entry -> {
-            System.out.println("Flight:" + entry.getValue() + "\n");
+    public List<Flight> findFlightTo(String city) {
+        List<Flight> arrivals = data.flights.get(city);
+        arrivals.stream().forEach(line -> {
+            System.out.println("Flight:" + line + "\n");
         });
         return arrivals;
     }
 
-    public Map<String, Flight> findFlightFrom(String city) {
-        Flights flights = data.getFlights().get(city);
-        Map<String, Flight> departures = flights.getDepartures();
-        departures.entrySet().stream().forEach(entry -> {
-            System.out.println("Flight:" + entry.getValue() + "\n");
+    public List<Flight> findFlightFrom(String city) {
+        List<Flight> departures = new ArrayList<>();
+        for (Map.Entry entry : data.flights.entrySet()) {
+            List<Flight> fl = (List<Flight>) entry.getValue();
+            for (int i = 0; i < fl.size(); i++) {
+                if (fl.get(i).departureCity.equals(city)) {
+                    departures.add(fl.get(i));
+                }
+            }
+        }
+        departures.stream().forEach(line -> {
+            System.out.println("Flight:" + line + "\n");
         });
         return departures;
     }
 
-    public Set<Flight> findDirectFlights(String departureCity, String arrivalCity) {
-        Flights flights = data.getFlights().get(arrivalCity);
-        Map<String, Flight> arrivals = flights.getArrivals();
+    public List<Flight> findConnection(String departureCity, String arrivalCity) {
+        List<Flight> flightsToArrivalCity = data.flights.get(arrivalCity);
+        List<Flight> flightsFromDepartureCity = findFlightFrom(departureCity);
+        List<Flight> connection = new ArrayList<>();
 
-        Set<Flight> directFlights = new HashSet<>();
-        for (Map.Entry<String, Flight> entry : arrivals.entrySet()) {
-            if (entry.getKey().equals(departureCity)) {
-                directFlights.add(entry.getValue());
+        for (int i = 0; i < flightsToArrivalCity.size(); i++) {
+            for (int n = 0; n < flightsFromDepartureCity.size(); n++) {
+                Flight flight1 = flightsToArrivalCity.get(i);
+                Flight flight2 = flightsFromDepartureCity.get(n);
+                if (flight1.departureCity.equals(flight2.arrivalCity) &&
+                        flight2.arrivalTime.getHour() < flight1.departureTime.getHour() &&
+                        flight1.date.equals(flight2.date)) {
+                    connection.add(flight2);
+                    connection.add(flight1);
+                }
             }
         }
-        return directFlights;
-    }
-
-
-    public List<Flight> findConnections(String departureCity, String arrivalCity) {
-        Flights flights = data.getFlights().get(departureCity);
-        Map<String, Flight> departures = flights.getDepartures();
-
-        Flights flights2 = data.getFlights().get(arrivalCity);
-        Map<String, Flight> arrivals = flights2.getArrivals();
-
-        List<String> commonKeys = (List<String>) CollectionUtils.intersection(arrivals.keySet(), departures.keySet());
-
-        for (int i = 0; i < commonKeys.size(); i++) {
-            String key = commonKeys.get(i);
-            if (!key.equals(departureCity) &&
-                    !key.equals(arrivalCity) &&
-                    arrivals.get(key).departureTime.getHour() > (departures.get(key).departureTime.getHour())) {
-                connections.add(departures.get(commonKeys.get(i)));
-                connections.add(arrivals.get(commonKeys.get(i)));
-            }
-        }
-        return connections;
+        return connection;
     }
 
 

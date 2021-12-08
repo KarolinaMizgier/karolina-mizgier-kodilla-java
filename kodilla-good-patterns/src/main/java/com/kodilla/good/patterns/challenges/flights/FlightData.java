@@ -70,5 +70,4 @@ public class FlightData {
         put("Warszawa", warszawa);
         put("Krakow", krakow);
     }};
-
 }

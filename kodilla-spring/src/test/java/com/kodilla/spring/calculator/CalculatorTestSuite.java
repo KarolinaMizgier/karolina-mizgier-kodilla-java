@@ -44,5 +44,4 @@ public class CalculatorTestSuite {
         //Then
         Assertions.assertEquals(5,result);
     }
-
 }

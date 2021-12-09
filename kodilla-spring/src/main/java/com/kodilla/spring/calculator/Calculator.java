@@ -13,11 +13,13 @@ public class Calculator {
     }
 
     double add(double a, double b) {
-        display.displayValue(a+b);
-        return a+b;
+        double result = a+b;
+        display.displayValue(result);
+        return result;
     }
 
     double sub(double a, double b) {
+        double result = a-b;
         display.displayValue(a-b);
         return a-b;
     }

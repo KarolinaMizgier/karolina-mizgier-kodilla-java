@@ -2,10 +2,7 @@ package com.kodilla.good.patterns.challenges.flights;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FlightData {
 
@@ -44,30 +41,7 @@ public class FlightData {
             LocalTime.parse("15:30"), LocalTime.parse("18:00"),
             LocalDate.of(2021, 12, 20));
 
-    public List<Flight> krakow = new ArrayList<>() {{
-        add(krakow1);
-        add(krakow2);
-        add(krakow3);
-        add(krakow4);
-    }};
-    public List<Flight> wroclaw = new ArrayList<>() {{
-        add(wroclaw1);
-        add(wroclaw2);
-        add(wroclaw3);
-    }};
-    public List<Flight> gdansk = new ArrayList<>() {{
-        add(gdansk1);
-        add(gdansk2);
-    }};
-    public List<Flight> warszawa = new ArrayList<>() {{
-        add(warszawa1);
-        add(warszawa2);
-    }};
-
-    public Map<String, List<Flight>> flights = new HashMap<>() {{
-        put("Wroclaw", wroclaw);
-        put("Gdansk", gdansk);
-        put("Warszawa", warszawa);
-        put("Krakow", krakow);
-    }};
+    public List<Flight> flights = List.of(
+            krakow1,krakow2,krakow3,krakow4,wroclaw1,wroclaw2,wroclaw3,gdansk1,gdansk2,warszawa1,warszawa2
+    );
 }

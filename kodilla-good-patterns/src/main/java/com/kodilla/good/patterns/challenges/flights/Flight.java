@@ -5,11 +5,11 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class Flight {
-    String departureCity;
-    String arrivalCity;
-    LocalTime departureTime;
-    LocalTime arrivalTime;
-    LocalDate date;
+    private final String departureCity;
+    private final String arrivalCity;
+    private final LocalTime departureTime;
+    private final LocalTime arrivalTime;
+    private final LocalDate date;
 
     public Flight(String departureCity, String arrivalCity, LocalTime departureTime, LocalTime arrivalTime, LocalDate date) {
         this.departureCity = departureCity;
@@ -17,6 +17,26 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.date = date;
+    }
+
+    public String getDepartureCity() {
+        return departureCity;
+    }
+
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     @Override

@@ -4,6 +4,7 @@ package com.kodilla.spring.reader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
@@ -26,6 +27,7 @@ public class ReaderConfig {
     }
 
     @Bean(name = "book2")
+    @Conditional(IfDayIsOddCondition.class)
     @Scope("prototype")
     public Book getBookTwo() {
         return new Book("The book number two");

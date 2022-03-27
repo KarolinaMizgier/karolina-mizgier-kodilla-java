@@ -24,13 +24,13 @@ public class Facade {
         if(name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Company name cannot be empty");
         }
-        return companyRepository.findCompaniesByNameLike("%" + name + "%");
+        return companyRepository.findCompaniesByNameLike(name);
     }
 
     public List<Employee> findEmploeesByName(String name) {
         if(name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Employee name cannot be empty");
         }
-        return employeeDao.findEmployeesByLastnameLike("%" + name + "%");
+        return employeeDao.findEmployeesByLastnameLike(name);
     }
 }

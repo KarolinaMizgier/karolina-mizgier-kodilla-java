@@ -2,17 +2,26 @@ package com.kodilla.hibernate.manytomany.dao;
 
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import com.kodilla.hibernate.task.Task;
+import com.kodilla.hibernate.task.TaskFinancialDetails;
+import com.kodilla.hibernate.taskList.TaskList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -44,11 +53,16 @@ class CompanyDaoTestSuite {
         int dataMaestersId = dataMaesters.getId();
         companyDao.save(greyMatter);
         int greyMatterId = greyMatter.getId();
+        List<Company> companies = companyDao.retrieveCompaniesByThreeLetters("Sof");
+        List<Employee> employees = employeeDao.retrieveEmployeesByLastname("Smith");
 
         //Then
         assertNotEquals(0, softwareMachineId);
         assertNotEquals(0, dataMaestersId);
         assertNotEquals(0, greyMatterId);
+        assertEquals(1, companies.size());
+        assertEquals(1, employees.size());
+        assertEquals(employees.get(0).getFirstname(), "John");
 
         //CleanUp
         try {

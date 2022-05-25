@@ -30,7 +30,7 @@ public class FacadeTest {
         Company company = new Company("KarolinaCompany");
         companyDao.save(company);
         // when
-        List<Company> companyByName = facade.findCompaniesByName("%KarolinaCo%");
+        List<Company> companyByName = facade.findCompaniesByName("KarolinaCo");
         // then
         assertEquals(companyByName.size(), 1);
         assertEquals(companyByName.get(0).getName(), "KarolinaCompany");
@@ -44,7 +44,7 @@ public class FacadeTest {
         Employee employee = new Employee("Karolina", "Mizgier");
         employeeDao.save(employee);
         //when
-        List<Employee> employees = facade.findEmploeesByName("%Miz%");
+        List<Employee> employees = facade.findEmploeesByName("Miz");
         //then
         assertEquals(employees.get(0).getLastname(), "Mizgier");
         //cleanUp

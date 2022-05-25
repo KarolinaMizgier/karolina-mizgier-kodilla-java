@@ -11,12 +11,12 @@ import java.util.List;
 
 @Service
 public class Facade {
-    private final CompanyDao companyRepository;
+    private final CompanyDao companyDao;
     private final EmployeeDao employeeDao;
 
     @Autowired
     public Facade(CompanyDao companyRepository, EmployeeDao employeeDao) {
-        this.companyRepository = companyRepository;
+        this.companyDao = companyRepository;
         this.employeeDao = employeeDao;
     }
 
@@ -24,7 +24,7 @@ public class Facade {
         if(name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Company name cannot be empty");
         }
-        return companyRepository.findCompaniesByNameLike(name);
+        return companyDao.findCompaniesByNameLike(name);
     }
 
     public List<Employee> findEmploeesByName(String name) {
